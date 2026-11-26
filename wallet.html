@@ -87,54 +87,58 @@
     }
     .qr-frame {
       position: relative;
-      /* Room for expanding border (max ~1.35rem out) */
-      padding: 1.5rem;
-      background: transparent;
+      padding: 0;
+      background: #fff;
       display: block;
       line-height: 0;
       margin: 0 auto;
-      box-sizing: content-box;
-      /* ~55% of the card width (QR modules; border expands outside) */
+      box-sizing: border-box;
+      /* ~55% of the card width */
       width: 55%;
+    }
+    /* Pulse square only — never touches the QR image */
+    .qr-frame::before {
+      content: "";
+      position: absolute;
+      /* Start slightly off the QR (not touching), expand a little, then fade */
+      inset: -6px;
+      border: 3px solid grey;
+      pointer-events: none;
+      z-index: 1;
+      animation: borderPulse 2.2s ease-out infinite;
+    }
+    @keyframes borderPulse {
+      0% {
+        inset: -6px;
+        border-width: 3px;
+        border-color: grey;
+        opacity: 1;
+      }
+      70% {
+        inset: -18px;
+        border-width: 5px;
+        border-color: rgb(216, 212, 212);
+        opacity: 0.35;
+      }
+      100% {
+        inset: -18px;
+        border-width: 5px;
+        border-color: rgb(216, 212, 212);
+        opacity: 0;
+      }
     }
     #qrcode {
       position: relative;
       width: 100%;
       aspect-ratio: 1;
+      z-index: 0;
     }
     #qrcode img,
     #qrcode canvas {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
       display: block;
       width: 100% !important;
       height: 100% !important;
       object-fit: contain;
-      background: #fff;
-      /* Small gap from QR modules; expands modestly then fades out */
-      padding: 0.4rem;
-      border: 3px solid grey;
-      box-sizing: content-box;
-      animation: borderAnimation 2.2s ease-out infinite;
-    }
-    @keyframes borderAnimation {
-      0% {
-        padding: 0.4rem;
-        border: 3px solid grey;
-        opacity: 1;
-      }
-      70% {
-        padding: 1.35rem;
-        border: 5px solid rgb(216, 212, 212);
-        opacity: 0.35;
-      }
-      100% {
-        padding: 1.35rem;
-        border: 5px solid rgb(216, 212, 212);
-        opacity: 0;
-      }
     }
     .ticket-bottom {
       display: grid;
