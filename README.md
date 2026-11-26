@@ -4,8 +4,8 @@ Static wallet viewer for shareable DICE ticket links. Hosted for free on GitHub 
 
 ## Live site
 
-- Repo: https://github.com/natequinnword/dice-ticket-transfer
-- Pages: https://natequinnword.github.io/dice-ticket-transfer/
+- Repo: https://github.com/dicetickettransfer/dice-ticket-transfer
+- Pages: https://dicetickettransfer.github.io/dice-ticket-transfer/
 
 Paste that Pages URL into the Chrome extension as **Viewer base URL** (the extension defaults to it).
 
