@@ -87,37 +87,47 @@
     }
     .qr-frame {
       position: relative;
-      padding: 8px;
-      background: #fff;
+      /* Room for SMP-style expanding border (padding 1rem → 2.5rem) */
+      padding: 2.5rem;
+      background: transparent;
       display: block;
       line-height: 0;
       margin: 0 auto;
-      box-sizing: border-box;
-      /* ~60% of the card width */
-      width: 60%;
-    }
-    .qr-frame::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border: 2px solid #bdbdbd;
-      pointer-events: none;
-      animation: qrPulse 1.6s ease-in-out infinite;
-    }
-    @keyframes qrPulse {
-      0% { inset: 0; border-color: #9e9e9e; border-width: 2px; }
-      100% { inset: -6px; border-color: #e0e0e0; border-width: 3px; }
+      box-sizing: content-box;
+      /* ~55% of the card width (QR modules; border expands outside) */
+      width: 55%;
     }
     #qrcode {
+      position: relative;
       width: 100%;
       aspect-ratio: 1;
     }
     #qrcode img,
     #qrcode canvas {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
       display: block;
       width: 100% !important;
       height: 100% !important;
       object-fit: contain;
+      background: #fff;
+      /* Mirrors Secure My Pass borderAnimation */
+      padding: 1rem;
+      border: 4px solid grey;
+      box-sizing: content-box;
+      animation: borderAnimation 1.5s infinite;
+    }
+    @keyframes borderAnimation {
+      0% {
+        padding: 1rem;
+        border: 4px solid grey;
+      }
+      100% {
+        padding: 2.5rem;
+        border: 7px solid rgb(216, 212, 212);
+      }
     }
     .ticket-bottom {
       display: grid;
