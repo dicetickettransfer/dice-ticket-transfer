@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DICE Ticket Transfer</title>
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --card: #141b24;
+      --text: #f3f6fb;
+      --muted: #9aa7b8;
+      --accent: #5b8cff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background:
+        radial-gradient(ellipse at top, #1a2740 0%, transparent 55%),
+        var(--bg);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    main {
+      max-width: 520px;
+      width: 100%;
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+    .brand {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    h1 {
+      font-size: 1.75rem;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    p {
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 1rem;
+    }
+    .note {
+      font-size: 0.9rem;
+      padding: 0.9rem 1rem;
+      border-radius: 10px;
+      background: rgba(91,140,255,0.08);
+      border: 1px solid rgba(91,140,255,0.2);
+      color: #c9d7f2;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand">DICE Ticket Transfer</div>
+    <h1>Your ticket transfer link</h1>
+    <p>
+      Open the unique wallet link you were sent to view your entry QR code.
+      Links are self-contained and work in any modern browser.
+    </p>
+    <div class="note">
+      If you landed here without a transfer link, ask the sender to share their
+      wallet URL again. Valid links open directly on the ticket view page.
+    </div>
+  </main>
+</body>
+</html>
