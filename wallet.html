@@ -21,17 +21,16 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 12px 12px max(20px, env(safe-area-inset-bottom));
-      padding-left: max(12px, env(safe-area-inset-left));
-      padding-right: max(12px, env(safe-area-inset-right));
+      padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right))
+        max(16px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
     }
     .shell {
-      width: 100%;
-      max-width: 420px;
+      /* Biggest card that still fits the viewport (like the DICE app) */
+      width: min(94vw, calc((100dvh - 72px) / 1.767), 520px);
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      gap: 16px;
+      gap: 14px;
     }
     .ticket {
       position: relative;
@@ -40,13 +39,9 @@
       padding: 24px 22px 20px;
       display: flex;
       flex-direction: column;
-      /* Match real DICE ticket card (~1.77× taller than wide) */
       aspect-ratio: 1 / 1.767;
       width: 100%;
-      min-height: 0;
       box-shadow: 0 10px 36px rgba(0, 0, 0, 0.4);
-      container-type: inline-size;
-      container-name: ticket;
     }
     .ticket-top { padding-right: 28px; flex-shrink: 0; }
     .ticket-type {
@@ -92,41 +87,14 @@
     }
     .qr-frame {
       position: relative;
-      /* Quiet zone around modules — keeps pulse border off the bits */
       padding: 8px;
       background: #fff;
       display: block;
       line-height: 0;
-      /* Mobile-first: larger QR for real phones; desktop tightened below */
-      width: 54%;
-      max-width: 240px;
       margin: 0 auto;
       box-sizing: border-box;
-    }
-    @supports (width: 1cqw) {
-      .qr-frame {
-        width: clamp(168px, 54cqw, 240px);
-        max-width: none;
-      }
-    }
-    /* Desktop preview: keep closer to measured DICE proportions */
-    @media (min-width: 700px) {
-      body {
-        padding: 20px 16px 28px;
-      }
-      .shell {
-        max-width: 360px;
-      }
-      .qr-frame {
-        width: 37.2%;
-        max-width: 148px;
-      }
-      @supports (width: 1cqw) {
-        .qr-frame {
-          width: clamp(120px, 37.2cqw, 148px);
-          max-width: none;
-        }
-      }
+      /* Always ~37% of the card — card scales, QR stays proportional */
+      width: 37%;
     }
     .qr-frame::before {
       content: "";
@@ -477,9 +445,9 @@
           var host = document.getElementById("qrcode");
           var frame = host && host.closest(".qr-frame");
           if (!host || !frame) return;
-          var cssSize = Math.max(140, Math.round(frame.clientWidth - 16));
+          var cssSize = Math.max(64, Math.round(frame.clientWidth - 16));
           var dpr = Math.min(3, window.devicePixelRatio || 1);
-          var qrPx = Math.max(160, Math.round(cssSize * dpr));
+          var qrPx = Math.max(128, Math.round(cssSize * dpr));
           host.innerHTML = "";
           new QRCode(host, {
             text: String(data.barcode),
