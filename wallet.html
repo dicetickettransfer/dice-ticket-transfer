@@ -25,32 +25,35 @@
     }
     .shell {
       width: 100%;
-      max-width: 390px;
+      max-width: 360px;
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      gap: 18px;
+      gap: 16px;
     }
     .ticket {
       position: relative;
       background: #fff;
-      border-radius: 18px;
-      padding: 22px 20px 18px;
+      border-radius: 20px;
+      padding: 24px 22px 20px;
       display: flex;
       flex-direction: column;
-      min-height: 560px;
+      /* Match real DICE ticket card (~1.77× taller than wide) */
+      aspect-ratio: 1 / 1.767;
+      min-height: 520px;
+      box-shadow: 0 10px 36px rgba(0, 0, 0, 0.4);
     }
-    .ticket-top { padding-right: 28px; }
+    .ticket-top { padding-right: 28px; flex-shrink: 0; }
     .ticket-type {
-      font-size: 22px;
+      font-size: 21px;
       font-weight: 700;
       letter-spacing: -0.02em;
       line-height: 1.2;
       color: #111;
     }
     .ticket-count {
-      margin-top: 6px;
-      font-size: 13px;
+      margin-top: 5px;
+      font-size: 12px;
       font-weight: 500;
       letter-spacing: 0.06em;
       color: #8a8a8a;
@@ -58,8 +61,8 @@
     }
     .info-dot {
       position: absolute;
-      top: 18px;
-      right: 16px;
+      top: 20px;
+      right: 18px;
       width: 22px;
       height: 22px;
       border-radius: 50%;
@@ -74,43 +77,55 @@
       user-select: none;
     }
     .qr-wrap {
-      flex: 1;
+      flex: 1 1 auto;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 28px 8px 18px;
+      /* Extra room below QR so WHEN/WHERE sits like the real ticket */
+      padding: 12px 0 28px;
+      min-height: 0;
     }
     .qr-frame {
       position: relative;
-      padding: 14px;
+      /* Quiet zone around modules — keeps pulse border off the bits */
+      padding: 8px;
       background: #fff;
       display: inline-block;
       line-height: 0;
+      /* QR module square ≈ 37% of card width (measured from DICE screenshot) */
+      width: 37.2%;
+      max-width: 148px;
     }
     .qr-frame::before {
       content: "";
       position: absolute;
       inset: 0;
-      border: 3px solid #bdbdbd;
+      border: 2px solid #bdbdbd;
       pointer-events: none;
       animation: qrPulse 1.6s ease-in-out infinite;
     }
     @keyframes qrPulse {
-      0% { inset: 0; border-color: #9e9e9e; border-width: 3px; }
-      100% { inset: -10px; border-color: #e0e0e0; border-width: 5px; }
+      0% { inset: 0; border-color: #9e9e9e; border-width: 2px; }
+      100% { inset: -6px; border-color: #e0e0e0; border-width: 3px; }
+    }
+    #qrcode {
+      width: 100%;
+      aspect-ratio: 1;
     }
     #qrcode img,
     #qrcode canvas {
       display: block;
-      width: 200px !important;
-      height: 200px !important;
+      width: 100% !important;
+      height: 100% !important;
     }
     .ticket-bottom {
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 12px;
       align-items: end;
-      margin-top: 4px;
+      margin-top: auto;
+      flex-shrink: 0;
+      padding-top: 4px;
     }
     .meta .label {
       font-size: 11px;
@@ -128,8 +143,8 @@
     }
     .meta-block + .meta-block { margin-top: 14px; }
     .dice-seal {
-      width: 48px;
-      height: 64px;
+      width: 46px;
+      height: 62px;
       border-radius: 8px;
       overflow: hidden;
       flex-shrink: 0;
@@ -425,10 +440,12 @@
           "</div>" +
           "</div>";
 
+        // Render at retina density; CSS scales the square to ~37% of card width.
+        var qrPx = 256;
         new QRCode(document.getElementById("qrcode"), {
           text: String(data.barcode),
-          width: 200,
-          height: 200,
+          width: qrPx,
+          height: qrPx,
           correctLevel: QRCode.CorrectLevel.M,
         });
 
