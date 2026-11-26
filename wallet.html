@@ -96,34 +96,38 @@
       /* ~55% of the card width */
       width: 55%;
     }
-    /* Pulse square only — never touches the QR image */
+    /* Pulse square only — never touches the QR image.
+       Animate transform/opacity only (compositor-friendly) so mobile stays smooth. */
     .qr-frame::before {
       content: "";
       position: absolute;
-      /* Start slightly off the QR (not touching), expand a little, then fade */
-      inset: -6px;
-      border: 3px solid grey;
+      left: 50%;
+      top: 50%;
+      /* Fixed box = QR + ~6px gap; scale grows it outward (~to +18px) */
+      width: calc(100% + 12px);
+      height: calc(100% + 12px);
+      box-sizing: border-box;
+      border: 3px solid #8a8a8a;
       pointer-events: none;
       z-index: 1;
-      animation: borderPulse 2.2s ease-out infinite;
+      transform: translate3d(-50%, -50%, 0) scale(1);
+      transform-origin: center center;
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      animation: borderPulse 2.2s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
     }
     @keyframes borderPulse {
       0% {
-        inset: -6px;
-        border-width: 3px;
-        border-color: grey;
+        transform: translate3d(-50%, -50%, 0) scale(1);
         opacity: 1;
       }
       70% {
-        inset: -18px;
-        border-width: 5px;
-        border-color: rgb(216, 212, 212);
+        transform: translate3d(-50%, -50%, 0) scale(1.12);
         opacity: 0.35;
       }
       100% {
-        inset: -18px;
-        border-width: 5px;
-        border-color: rgb(216, 212, 212);
+        transform: translate3d(-50%, -50%, 0) scale(1.12);
         opacity: 0;
       }
     }
