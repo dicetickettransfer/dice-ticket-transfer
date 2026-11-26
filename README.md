@@ -2,16 +2,22 @@
 
 Static wallet viewer for shareable DICE ticket links. Hosted for free on GitHub Pages — no server required.
 
-## Deploy (one-time)
+## Live site
 
-1. Create a **public** GitHub repository named `dice-ticket-transfer`.
-2. Upload the files in this folder to the repo root (`index.html`, `wallet.html`, `payload.js`).
-3. GitHub → **Settings** → **Pages** → Source: **Deploy from a branch** → `main` / `/ (root)`.
-4. Your site will be at:
-   `https://<your-github-username>.github.io/dice-ticket-transfer/`
-5. Paste that URL into the Chrome extension settings as **Viewer base URL**.
+- Repo: https://github.com/natequinnword/dice-ticket-transfer
+- Pages: https://natequinnword.github.io/dice-ticket-transfer/
+
+Paste that Pages URL into the Chrome extension as **Viewer base URL** (the extension defaults to it).
 
 Friends can reuse the same Pages URL; they only need the extension + their own Discord webhook.
+
+## Redeploy
+
+Push to `main` after editing files in this folder:
+
+```bash
+git add -A && git commit -m "Update viewer" && git push
+```
 
 ## Link format
 
